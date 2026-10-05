@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brady + Alice · Save the Date</title>
+<meta name="description" content="Brady + Alice. August 21, 2027. Toronto, Canada.">
+<meta property="og:title" content="Brady + Alice · Save the Date">
+<meta property="og:description" content="August 21, 2027 · Toronto, Canada · 我哋結婚喇">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23d4201b'>囍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Noto+Sans+HK:wght@400;500;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #f2eee5; --ink: #141414; --red: #d4201b; --pad: clamp(16px, 4vw, 48px); }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 400 16px/1.6 "JetBrains Mono", "Noto Sans HK", monospace;
+    min-height: 100vh; display: flex; flex-direction: column;
+    padding: 0 var(--pad);
+  }
+  /* Both languages live in the markup; <html lang> picks which one shows. */
+  html[lang="en"] [lang="zh-HK"], html[lang="zh-HK"] [lang="en"] { display: none; }
+
+  header, footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  header { padding: 24px 0; border-bottom: 1px solid var(--ink); }
+  .mark { font-weight: 700; font-size: 18px; }
+  .lang { display: flex; gap: 4px; }
+  .lang button { font: inherit; color: inherit; background: none; border: 1px solid transparent; padding: 4px 10px; cursor: pointer; }
+  .lang button:hover { text-decoration: underline; text-underline-offset: 4px; }
+  html[lang="en"] .lang [data-lang="en"], html[lang="zh-HK"] .lang [data-lang="zh-HK"] { background: var(--ink); color: var(--bg); }
+
+  main { flex: 1; padding: 32px 0 64px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .eyebrow { align-self: stretch; display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 24px; }
+  .eyebrow .num { color: var(--red); font-weight: 700; }
+  .xi { font: 900 clamp(120px, 22vw, 220px)/1 "Noto Sans HK", sans-serif; color: var(--red); margin-bottom: 24px; }
+  h1 { font-weight: 800; font-size: clamp(44px, 8vw, 88px); line-height: 1.05; letter-spacing: -.025em; margin-bottom: 20px; }
+  .when { font-size: clamp(16px, 2vw, 20px); margin-bottom: 40px; }
+
+  .btn { color: inherit; text-underline-offset: 4px; font-size: 14px; }
+  .btn:hover { color: var(--red); }
+  .btn.primary {
+    position: relative; display: inline-block; text-decoration: none;
+    background: var(--red); color: var(--bg); border: 1px solid var(--ink);
+    padding: 12px 32px; font-size: 16px; font-weight: 700; margin-bottom: 24px;
+  }
+  /* turbopuffer's dithered drop shadow: a dot grid peeking out from behind the box. */
+  .btn.primary::after {
+    content: ""; position: absolute; inset: 0; transform: translate(6px, 6px); z-index: -1;
+    background: radial-gradient(var(--ink) 1px, transparent 1.2px) 0 0 / 3px 3px;
+  }
+  .btn.primary:hover { transform: translate(2px, 2px); }
+  .btn.primary:hover::after { transform: translate(4px, 4px); }
+
+  footer { border-top: 1px solid var(--ink); padding: 32px 0 40px; align-items: flex-end; flex-wrap: wrap; font-size: 14px; }
+  .vow { font: 700 26px/1.3 "Noto Sans HK", sans-serif; }
+  footer > p:last-child { text-align: right; }
+
+  @media (max-width: 640px) {
+    h1 span { display: block; }
+    footer { flex-direction: column; align-items: flex-start; gap: 24px; }
+    footer > p:last-child { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="mark">b + a</div>
+  <nav class="lang">
+    <button data-lang="en">EN</button>
+    <button data-lang="zh-HK">中文</button>
+  </nav>
+</header>
+
+<main>
+  <div class="eyebrow">
+    <span class="num">01</span>
+    <span lang="en">save the date</span><span lang="zh-HK">請預留日子</span>
+  </div>
+  <div class="xi" aria-hidden="true">囍</div>
+  <h1>brady <span>+</span> alice</h1>
+  <p class="when">
+    <span lang="en">august 21, 2027<br>toronto, canada</span>
+    <span lang="zh-HK">二〇二七年八月二十一日<br>加拿大 多倫多</span>
+  </p>
+  <a class="btn primary" href="save-the-date.ics" download>
+    <span lang="en">add to calendar &rarr;</span><span lang="zh-HK">加入日曆 &rarr;</span>
+  </a>
+  <a class="btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Brady%20%2B%20Alice%27s%20Wedding&amp;dates=20270821/20270822&amp;location=Toronto%2C%20Canada&amp;details=Formal%20invitation%20to%20follow." target="_blank" rel="noopener">
+    <span lang="en">or add to google calendar</span><span lang="zh-HK">或加入 Google 日曆</span>
+  </a>
+</main>
+
+<footer>
+  <div>
+    <p class="vow">我哋結婚喇</p>
+    <p lang="en">together always</p><p lang="zh-HK">永結同心</p>
+  </div>
+  <p><span lang="en">formal invitation to follow.<br></span>正式請柬稍後送上。</p>
+</footer>
+
+<script>
+  // ?lang=zh lets us send her family a link that opens in Cantonese.
+  const pick = new URLSearchParams(location.search).get("lang") || navigator.language;
+  const set = (l) => (document.documentElement.lang = l);
+  if (pick.toLowerCase().startsWith("zh")) set("zh-HK");
+  document.querySelectorAll(".lang button").forEach((b) => (b.onclick = () => set(b.dataset.lang)));
+</script>
+</body>
+</html>
