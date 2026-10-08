@@ -105,9 +105,51 @@
 <script>
   // ?lang=zh lets us send her family a link that opens in Cantonese.
   const pick = new URLSearchParams(location.search).get("lang") || navigator.language;
-  const set = (l) => (document.documentElement.lang = l);
+  const root = document.documentElement;
+  const set = (l) => (root.lang = l);
   if (pick.toLowerCase().startsWith("zh")) set("zh-HK");
-  document.querySelectorAll(".lang button").forEach((b) => (b.onclick = () => set(b.dataset.lang)));
+
+  // Every translated string, captured before any flip can leave a node half-scrambled.
+  const texts = (el) => {
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), out = [];
+    while (w.nextNode()) if (w.currentNode.data.trim()) out.push(w.currentNode);
+    return out;
+  };
+  const orig = new Map();
+  document.querySelectorAll("body [lang]").forEach((el) => texts(el).forEach((n) => orig.set(n, n.data)));
+  let run = 0;
+
+  const swap = (l) => {
+    const was = root.lang;
+    if (l === was) return;
+    set(l);
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const r = ++run;
+    document.querySelectorAll(`body [lang="${l}"]`).forEach((el) => {
+      // Translations sit side by side, so the twin is the neighbour in the old language.
+      const twin = [el.previousElementSibling, el.nextElementSibling].find((s) => s?.lang === was);
+      const from = twin ? texts(twin).map((n) => orig.get(n)) : [];
+      texts(el).forEach((n, i) => flip(n, from[i] ?? "", orig.get(n), r));
+    });
+  };
+  document.querySelectorAll(".lang button").forEach((b) => (b.onclick = () => swap(b.dataset.lang)));
+
+  // Split-flap: each position cycles through the new string's own glyphs and
+  // settles left to right, while the length slides from the old string's to the new's.
+  function flip(node, from, to, r) {
+    const pool = [...new Set(to.replace(/\s/g, ""))].join("") || "#";
+    const n = Math.max(from.length, to.length), start = performance.now(), ms = 700;
+    const id = setInterval(() => {
+      if (r !== run) return clearInterval(id), (node.data = orig.get(node));
+      const p = Math.min(1, (performance.now() - start) / ms);
+      const settled = Math.floor(p * n), len = Math.round(from.length + (to.length - from.length) * p);
+      let out = "";
+      for (let i = 0; i < Math.max(settled, len); i++)
+        out += i < settled || to[i] === " " ? to[i] ?? "" : pool[Math.floor(Math.random() * pool.length)];
+      node.data = out;
+      if (p === 1) clearInterval(id);
+    }, 45);
+  }
 </script>
 </body>
 </html>
