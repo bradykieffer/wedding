@@ -2,10 +2,10 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//alicebradywedding.ca//save-the-date//EN
 BEGIN:VEVENT
-UID:save-the-date-20270821@alicebradywedding.ca
+UID:save-the-date-20271009@alicebradywedding.ca
 DTSTAMP:20261005T000000Z
-DTSTART;VALUE=DATE:20270821
-DTEND;VALUE=DATE:20270822
+DTSTART;VALUE=DATE:20271009
+DTEND;VALUE=DATE:20271010
 SUMMARY:Brady + Alice's Wedding
 LOCATION:Harding Waterfront Estate\, 2700 Lakeshore Rd W\, Mississauga\, ON L5J 0B4
 DESCRIPTION:Formal invitation to follow. 正式請柬稍後送上。
