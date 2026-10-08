@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Noto+Sans+HK:wght@400;500;900&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #f2eee5; --ink: #141414; --red: #d4201b; --pad: clamp(16px, 4vw, 48px); }
+  :root { --bg: #f2eee5; --ink: #141414; --red: #d4201b; --gold: #c99a2e; --pad: clamp(16px, 4vw, 48px); }
   * { box-sizing: border-box; margin: 0; }
   body {
     background: var(--bg); color: var(--ink);
@@ -35,6 +35,8 @@
   .eyebrow { align-self: stretch; display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 24px; }
   .eyebrow .num { color: var(--red); font-weight: 700; }
   .xi { font: 900 clamp(120px, 22vw, 220px)/1 "Noto Sans HK", sans-serif; color: var(--red); margin-bottom: 24px; }
+  .xi { user-select: none; -webkit-tap-highlight-color: transparent; }
+  .confetti { position: fixed; top: -1.2em; font-family: "Noto Sans HK", sans-serif; font-weight: 900; line-height: 1; pointer-events: none; z-index: 10; }
   h1 { font-weight: 800; font-size: clamp(44px, 8vw, 88px); line-height: 1.05; letter-spacing: -.025em; margin-bottom: 20px; }
   .when { font-size: clamp(16px, 2vw, 20px); margin-bottom: 40px; }
 
@@ -133,6 +135,25 @@
     });
   };
   document.querySelectorAll(".lang button").forEach((b) => (b.onclick = () => swap(b.dataset.lang)));
+
+  // Easter egg: tap the big 囍 and it rains little ones in red and gold.
+  document.querySelector(".xi").onclick = () => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    for (let i = 0; i < 30; i++) {
+      const c = document.createElement("span");
+      c.className = "confetti";
+      c.textContent = "囍";
+      c.style.cssText = `left: calc(${Math.random() * 100}vw - .5em); font-size: ${14 + Math.random() * 22}px; color: var(${i % 2 ? "--red" : "--gold"})`;
+      document.body.append(c);
+      const drift = (Math.random() - 0.5) * 120, spin = (Math.random() - 0.5) * 720;
+      const duration = 2200 + Math.random() * 1800, delay = Math.random() * 600;
+      c.animate(
+        [{ transform: "none" }, { transform: `translate(${drift}px, 110vh) rotate(${spin}deg)` }],
+        { duration, delay, easing: "cubic-bezier(.3, .1, .6, 1)" },
+      );
+      setTimeout(() => c.remove(), delay + duration);
+    }
+  };
 
   // Split-flap: each position cycles through the new string's own glyphs and
   // settles left to right, while the length slides from the old string's to the new's.
