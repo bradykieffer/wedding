@@ -50,7 +50,11 @@
     padding: 12px 32px; font-size: 16px; font-weight: 700; margin-bottom: 24px;
   }
   /* turbopuffer's dithered drop shadow: a dot grid peeking out from behind the box. */
-  .btn.primary::after {
+  .photo { position: relative; margin-top: 64px; }
+  /* Dots must land 1:1 on CSS pixels or they shimmer, hence one file per width
+     instead of scaling a single image. */
+  .photo img { display: block; max-width: 100%; height: auto; aspect-ratio: 2 / 3; border: 1px solid var(--ink); image-rendering: pixelated; }
+  .btn.primary::after, .photo::after {
     content: ""; position: absolute; inset: 0; transform: translate(6px, 6px); z-index: -1;
     background: radial-gradient(var(--ink) 1px, transparent 1.2px) 0 0 / 3px 3px;
   }
@@ -94,6 +98,10 @@
   <a class="btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Brady%20%2B%20Alice%27s%20Wedding&amp;dates=20271009/20271010&amp;location=Harding%20Waterfront%20Estate%2C%202700%20Lakeshore%20Rd%20W%2C%20Mississauga%2C%20ON&amp;details=Formal%20invitation%20to%20follow." target="_blank" rel="noopener">
     <span lang="en">or add to google calendar</span><span lang="zh-HK">或加入 Google 日曆</span>
   </a>
+  <picture class="photo">
+    <source media="(max-width: 480px)" srcset="photo-340.png">
+    <img src="photo-440.png" alt="Alice and Brady on a bench under red ivy, with their French bulldog">
+  </picture>
 </main>
 
 <footer>
